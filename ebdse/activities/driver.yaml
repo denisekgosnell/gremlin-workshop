@@ -4,17 +4,13 @@ blocks:
   tags:
    phase: create-graph
   statements:
-   # variables listed as <<variable>> come from runebdse.sh;
-   # default setting follows the colon <<variable:default>>
-   # in the example below, the name of the graph will be nameofgraph=$graphname from runebdse.sh
-   # in the case the variable nameofgraph=$graphname is missing, the default is test
    - >-
    system.graph('<<nameofgraph:test>>').ifNotExists().create()
 
 # ### 2. DEV MODE FOR SCHEMA-FREE INSERTION OF AIR ROUTES #####
-# Creates a schema-less environment and prepares ds graph for auto schema detection
-# this is okay because we just want to learn some Gremlin.
-# this is never advisable for production applications
+# ### Creates a schema-less environment and prepares ds graph for auto schema detection
+# ### this is okay because we just want to learn some Gremlin.
+# ### this is never advisable for production applications
 - name: dev-mode
   tags:
    phase: dev-mode
