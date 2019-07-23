@@ -27,8 +27,7 @@ while IFS= read -r line
 do
     STUDENT=$line$NOTEBOOK
     cp ./notebooks/July2019-AdvGremlinConceptsWorkshop.studio-nb.tar ./notebooks/$STUDENT
-    POST_FILE="file=@./notebooks/"
-    POST_FILE+=$STUDENT
+    POST_FILE="file=@./notebooks/"$STUDENT
     curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
     rm ./notebooks/$STUDENT
 done < "$input"
