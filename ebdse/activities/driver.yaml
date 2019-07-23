@@ -4,7 +4,7 @@ blocks:
   tags:
    phase: create-graph
   statements:
-    - system.graph('<<nameofgraph:test>>').ifNotExists().create()
+    - system.graph('<<graphname:workshop>>').ifNotExists().create()
 
 # ### 2. DEV MODE FOR SCHEMA-FREE INSERTION OF AIR ROUTES #####
 # ### Creates a schema-less environment and prepares ds graph for auto schema detection
@@ -15,32 +15,40 @@ blocks:
    phase: graph-schema
   statements:
    - >-
-    schema.propertyKey("icao").Text().single().create()
-    schema.propertyKey("dist").Int().single().create()
-    schema.propertyKey("city").Text().single().create()
-    schema.propertyKey("runways").Int().single().create()
-    schema.propertyKey("lat").Double().single().create()
-    schema.propertyKey("code").Text().single().create()
-    schema.propertyKey("region").Text().single().create()
-    schema.propertyKey("desc").Text().single().create()
-    schema.propertyKey("type").Text().single().create()
-    schema.propertyKey("elev").Int().single().create()
-    schema.propertyKey("longest").Int().single().create()
-    schema.propertyKey("country").Text().single().create()
-    schema.propertyKey("lon").Double().single().create()
-    schema.edgeLabel("route").multiple().properties("dist").create()
-    schema.edgeLabel("contains").multiple().create()
-    schema.vertexLabel("airport").properties("country", "code", "longest", "city", "elev", "icao", "lon", "type", "region", "runways", "lat", "desc").create()
-    schema.vertexLabel("version").properties("code", "type", "desc").create()
-    schema.vertexLabel("country").properties("code", "type", "desc").create()
-    schema.vertexLabel("continent").properties("code", "type", "desc").create()
+    schema.propertyKey("icao").Text().single().ifNotExists().create()
+    schema.propertyKey("dist").Int().single().ifNotExists().create()
+    schema.propertyKey("city").Text().single().ifNotExists().create()
+    schema.propertyKey("runways").Int().single().ifNotExists().create()
+    schema.propertyKey("lat").Double().single().ifNotExists().create()
+    schema.propertyKey("code").Text().single().ifNotExists().create()
+    schema.propertyKey("region").Text().single().ifNotExists().create()
+    schema.propertyKey("desc").Text().single().ifNotExists().create()
+    schema.propertyKey("type").Text().single().ifNotExists().create()
+    schema.propertyKey("elev").Int().single().ifNotExists().create()
+    schema.propertyKey("longest").Int().single().ifNotExists().create()
+    schema.propertyKey("country").Text().single().ifNotExists().create()
+    schema.propertyKey("lon").Double().single().ifNotExists().create()
+    schema.edgeLabel("route").multiple().properties("dist").ifNotExists().create()
+    schema.edgeLabel("contains").multiple().ifNotExists().create()
+    schema.vertexLabel("airport").partitionKey("code").properties("country","longest", "city", "elev", "icao", "lon", "type", "region", "runways", "lat", "desc").ifNotExists().create()
+    schema.vertexLabel("version").partitionKey("code").properties("type", "desc").ifNotExists().create()
+    schema.vertexLabel("country").partitionKey("code").properties("type", "desc").ifNotExists().create()
+    schema.vertexLabel("continent").partitionKey("code").properties("type", "desc").ifNotExists().create()
     schema.edgeLabel("route").connection("airport", "airport").add()
     schema.edgeLabel("contains").connection("country", "airport").connection("continent", "airport").add()
+
+# ### 3. CONIGURE SCHEMA TO TAKE OF ALL RAILS TO WORK WITH AIR ROUTES #####
+- name: config-schema
+  tags:
+   phase: config-schema
+  statements:
+   - >-
     schema.config().option('graph.schema_mode').set('Development')
     schema.config().option('graph.allow_scan').set('true')
     schema.config().option("tx_autostart").set(true)
+    schema.config().option("graph.traversal_sources.g.evaluation_timeout").set('PT2H')
 
-# ### 3. CREATE THE SCHEMA #####
+# ### 4. read the data from graph.io #####
 - name: read-graph
   tags:
    phase: read-graph
