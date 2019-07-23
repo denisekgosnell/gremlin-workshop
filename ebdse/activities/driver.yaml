@@ -45,5 +45,5 @@ blocks:
   tags:
    phase: read-graph
   statements:
-    >-
+   - >-
     graph.io(IoCore.graphml()).readGraph("/tmp/gremlin-workshop/data/air-routes.graphml")
