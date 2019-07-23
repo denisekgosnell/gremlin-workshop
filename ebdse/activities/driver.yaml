@@ -10,14 +10,11 @@ blocks:
 # ### Creates a schema-less environment and prepares ds graph for auto schema detection
 # ### this is okay because we just want to learn some Gremlin.
 # ### this is never advisable for production applications
-- name: dev-mode
+- name: graph-schema
   tags:
-   phase: dev-mode
+   phase: graph-schema
   statements:
-    >-
-    schema.config().option('graph.schema_mode').set('Development')
-    schema.config().option('graph.allow_scan').set('true')
-    schema.config().option("tx_autostart").set(true)
+   - >-
     schema.propertyKey("icao").Text().single().create()
     schema.propertyKey("dist").Int().single().create()
     schema.propertyKey("city").Text().single().create()
@@ -39,6 +36,9 @@ blocks:
     schema.vertexLabel("continent").properties("code", "type", "desc").create()
     schema.edgeLabel("route").connection("airport", "airport").add()
     schema.edgeLabel("contains").connection("country", "airport").connection("continent", "airport").add()
+    schema.config().option('graph.schema_mode').set('Development')
+    schema.config().option('graph.allow_scan').set('true')
+    schema.config().option("tx_autostart").set(true)
 
 # ### 3. CREATE THE SCHEMA #####
 - name: read-graph

@@ -21,7 +21,7 @@ fi
 /tmp/ebdse/ebdse run type=dsegraph yaml=driver tags=phase:create-graph cycles=1 host=$host nameofgraph=$graphname
 
 # ### 2. DEVELOPMENT MODE #####
-/tmp/ebdse/ebdse run type=dsegraph yaml=driver graphname=$graphname tags=phase:dev-mode cycles=1 host=$host
+/tmp/ebdse/ebdse run type=dsegraph yaml=driver graphname=$graphname tags=phase:graph-schema cycles=1 host=$host
 
 # ### 3. INSERT AIR ROUTES DATA#####
 /tmp/ebdse/ebdse run type=dsegraph yaml=driver graphname=$graphname tags=phase:read-graph cycles=1 host=$host
