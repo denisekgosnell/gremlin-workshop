@@ -8,7 +8,8 @@ blocks:
    # default setting follows the colon <<variable:default>>
    # in the example below, the name of the graph will be nameofgraph=$graphname from runebdse.sh
    # in the case the variable nameofgraph=$graphname is missing, the default is test
-   - system.graph('<<nameofgraph:test>>').ifNotExists().create()
+   - >-
+   system.graph('<<nameofgraph:test>>').ifNotExists().create()
 
 # ### 2. DEV MODE FOR SCHEMA-FREE INSERTION OF AIR ROUTES #####
 # Creates a schema-less environment and prepares ds graph for auto schema detection
@@ -19,15 +20,9 @@ blocks:
    phase: dev-mode
   statements:
    - >-
-   schema.config()
-          .option('graph.schema_mode')
-          .set('Development')
-   schema.config()
-          .option('graph.allow_scan')
-          .set('true')
-   schema.config()
-         .option("tx_autostart")
-         .set(true)
+   schema.config().option('graph.schema_mode').set('Development')
+   schema.config().option('graph.allow_scan').set('true')
+   schema.config().option("tx_autostart").set(true)
 
 # ### 3. CREATE THE SCHEMA #####
 - name: read-graph
