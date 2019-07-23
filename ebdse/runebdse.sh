@@ -18,7 +18,7 @@ if [ $# -gt 0 ]; then
 fi
 
 # ### 1. CREATE THE GRAPH #####
-/tmp/ebdse/ebdse run type=dsegraph yaml=driver graphname=$graphname tags=phase:create-graph cycles=1 host=$host
+/tmp/ebdse/ebdse run type=dsegraph yaml=driver tags=phase:create-graph cycles=1 host=$host
 
 # ### 2. CREATE GRAPH SCHEMA #####
 /tmp/ebdse/ebdse run type=dsegraph yaml=driver graphname=$graphname tags=phase:graph-schema cycles=1 host=$host
