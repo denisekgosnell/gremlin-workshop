@@ -21,7 +21,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     INNER_SUFFIX=macos-64bit
 fi
 
-NOTEBOOK="July2019-AdvGremlinConceptsWorkshop.studio-nb.tar"
+NOTEBOOK=".studio-nb.tar"
 input="./enablementContent/students.txt"
 while IFS= read -r line
 do
