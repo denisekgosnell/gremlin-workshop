@@ -21,13 +21,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     INNER_SUFFIX=macos-64bit
 fi
 
-NOTEBOOK=".studio-nb.tar"
-input="./enablementContent/students.txt"
-while IFS= read -r line
-do
-    STUDENT=$line$NOTEBOOK
-    cp ./notebooks/July2019-AdvGremlinConceptsWorkshop.studio-nb.tar ./notebooks/$STUDENT
-    POST_FILE="file=@./notebooks/"$STUDENT
-    curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
-    rm ./notebooks/$STUDENT
-done < "$input"
+
+NOTEBOOK=July2019-AdvGremlinConceptsWorkshop.studio-nb.tar
+POST_FILE="file=@./notebooks/"NOTEBOOK
+curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
