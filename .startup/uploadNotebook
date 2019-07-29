@@ -23,5 +23,5 @@ fi
 
 
 NOTEBOOK=July2019-AdvGremlinConceptsWorkshop.studio-nb.tar
-POST_FILE="file=@./notebooks/"NOTEBOOK
+POST_FILE="file=@./notebooks/"$NOTEBOOK
 curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
