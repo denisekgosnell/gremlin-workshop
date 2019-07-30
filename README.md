@@ -1,17 +1,5 @@
 # assethub-graph-skeleton
 
-This repository is for Gremlin Enablement at DataStax. There are four sections to this README:
+This repository is for Gremlin Enablement at DataStax.
 
-A. [A](#a)
-B. [B](#b)
-C. [C](#c)
-D. [More Resources](#resources)
-
-### <a name="a"></a>A
-
-### <a name="b"></a>B
-
-### <a name="c"></a>C
-
-### <a name="resources"></a>More Resources
-
+Once this asset spins up, please see Studio. The notebooks walk through the content.
