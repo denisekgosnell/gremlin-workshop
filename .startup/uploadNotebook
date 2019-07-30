@@ -22,6 +22,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 
-NOTEBOOK=July2019-AdvGremlinConceptsWorkshop.studio-nb.tar
+NOTEBOOK=GremlinConceptsWorkshop.studio-nb.tar
 POST_FILE="file=@./notebooks/"$NOTEBOOK
+curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
+
+NOTEBOOK2=GremlinConceptsWorkshop___ANSWERS.studio-nb.tar
+POST_FILE="file=@./notebooks/"$NOTEBOOK2
 curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
