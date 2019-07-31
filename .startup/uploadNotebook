@@ -21,11 +21,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     INNER_SUFFIX=macos-64bit
 fi
 
+NOTEBOOK2=GremlinConceptsWorkshop___ANSWERS.studio-nb.tar
+POST_FILE="file=@./notebooks/"$NOTEBOOK2
+curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
+
 
 NOTEBOOK=GremlinConceptsWorkshop.studio-nb.tar
 POST_FILE="file=@./notebooks/"$NOTEBOOK
-curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
-
-NOTEBOOK2=GremlinConceptsWorkshop___ANSWERS.studio-nb.tar
-POST_FILE="file=@./notebooks/"$NOTEBOOK2
 curl -H "Accept-Encoding: gzip" -X POST -F $POST_FILE http://$IP:9091/api/v1/notebooks/import &> /dev/null
